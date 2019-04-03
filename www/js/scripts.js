@@ -9,7 +9,7 @@ var app = new Framework7 ({
         },
         {
             path: '/page2/',
-            url: '.pages/page2.html'
+            url: 'pages/page2.html'
         }
     ]
     
@@ -24,7 +24,7 @@ var posX = window.innerWidth / 2;
 var posY = window.innerHeight / 2;
 
 var answers = [];
-
+//console.log(answers);
 $('a').on("click", function(){
     var a1 = $("#a1").val();
     answer.push(a1);
@@ -69,8 +69,7 @@ function init() {
 
 function setup() {
 
-    var cnv = createCanvas(window.innerWidth, window.innerHeight)
-    cnv.parent("myCanvas");
+    
 
 }
 
@@ -80,18 +79,44 @@ function draw() {
     fill(0);
 
     if(posX < 100){
-       fill(100);
+       answers++;
+        if(answers>= 4){
+            answers = 3;
+        }
        }
     if(posX > 300){
-       fill(100);
+       answers*2;
+        if(answers>= 4){
+            answers = 3;
+        }
        }
     if(posY > 600){
-       fill(100);
+       answers--;
+        if(answers<= -1){
+            answers = 0;
+        }
        }
     if(posY < 350){
-       fill(100);
+       answers/2;
+        if(answers<= -1){
+            answers = 0;
+        }
        }
+    
+
 
     
     ellipse(posX, posY, 100, 100);
 }
+
+
+
+var $$ = Dom7;
+
+$$(document).on('page:init', '.page[data-name="page2"]', function (e) {
+    var cnv = createCanvas(window.innerWidth, window.innerHeight)
+    cnv.parent("myCanvas");
+    
+        consol.dir(answers);
+  // Do something here when page with data-name="about" attribute loaded and initialized
+})
